@@ -3,7 +3,7 @@
 #include "graveyard.h"
 
 // globale Variable (alternativ: kann auch statisch sein)
-int undead = 13;
+int gundead = 13;
 
 void awaken() {
     int undead = 666; // lokal
