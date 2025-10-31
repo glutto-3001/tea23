@@ -44,7 +44,7 @@ void doSomethingStatic()
 }
 
 
- //int undead = 7;
+int undead = 7;
 
 auto main(int argc, char** argv) -> int
 {
