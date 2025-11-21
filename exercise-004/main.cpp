@@ -50,8 +50,8 @@ auto main(int argc, char **argv) -> int
     fmt::print("Graustufenbild: Größe = {}x{}, Kanäle = {}\n", gray.cols, gray.rows, gray.channels());
 
     // 2. Gaussian Blur mit Kernelgröße 7x7, Sigma 1.5
-    int ksize = 7;
-    double sigma = 1.5;
+    int ksize = 71;
+    double sigma = 1;
     cv::GaussianBlur(gray, blurred, cv::Size(ksize, ksize), sigma);
     fmt::print("Gaussian Blur: Kernelgröße = {}x{}, Sigma = {:.2f}\n", ksize, ksize, sigma);
 
@@ -80,7 +80,7 @@ auto main(int argc, char **argv) -> int
     std::filesystem::create_directories(output_path); // output_path
 
     // Zum Beispiel speichern wir das Kantenbild ("edges") aus Aufgabe 6
-    if (cv::imwrite(savedfile, edges)) {
+    if (cv::imwrite(savedfile, blurred)) {
         fmt::print("Bild erfolgreich gespeichert als: {}\n", savedfile);
 
         // Nach dem Speichern: Dateigröße ermitteln

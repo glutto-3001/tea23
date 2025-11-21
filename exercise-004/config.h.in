@@ -10,6 +10,6 @@ constexpr auto PROJECT_BUILD_DATE {"@BUILD_DATE@"};
 
 // Neue Konstanten für Default Pfad und Dateiname der Bildausgabe
 constexpr auto DEFAULT_OUTPUT_PATH {"outputs"};
-constexpr auto DEFAULT_OUTPUT_FILENAME {"edges.jpg"};
+constexpr auto DEFAULT_OUTPUT_FILENAME {"blurred.jpg"};
 
 #endif // CONFIG_H_IN
