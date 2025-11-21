@@ -37,6 +37,15 @@ add_custom_target(generate_image_header ALL DEPENDS ${GENERATED_HEADER_PATH})
 # add the executable
 add_executable(${PROJECT_NAME} main.cpp ${GENERATED_HEADER_PATH})
 
+# add package OpenCV
+find_package(OpenCV REQUIRED core imgcodecs imgproc)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    fmt::fmt
+    opencv_core
+    opencv_imgcodecs
+    opencv_imgproc
+)
 
 # Include the generated header in the project
 
