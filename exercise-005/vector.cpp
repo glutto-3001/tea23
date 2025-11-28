@@ -94,3 +94,44 @@ void vector_print(const Vector_t* vec) {
     }
     std::printf("]\n");
 }
+
+// Aufgabe 6 – vector_insert_at
+
+int vector_insert_at(Vector_t* vec, size_t index, unsigned int value) {
+    if (vec == nullptr) {
+        return 0;
+    }
+    if (index > vec->size) { // Einfügen nur zwischen 0 und size
+        return 0;
+    }
+
+    // bei Bedarf initialisieren
+    if (vec->data == nullptr || vec->capacity == 0) {
+        vector_init(vec);
+        if (vec->data == nullptr) {
+            return 0;
+        }
+    }
+
+    // Kapazität prüfen / verdoppeln
+    if (vec->size >= vec->capacity) {
+        size_t newCapacity = vec->capacity * 2;
+        unsigned int* newData = static_cast<unsigned int*>(
+            std::realloc(vec->data, newCapacity * sizeof(unsigned int))
+        );
+        if (newData == nullptr) {
+            return 0;
+        }
+        vec->data = newData;
+        vec->capacity = newCapacity;
+    }
+
+    // Elemente ab index um eins nach rechts verschieben
+    for (size_t i = vec->size; i > index; --i) {
+        vec->data[i] = vec->data[i - 1];
+    }
+
+    vec->data[index] = value;
+    vec->size++;
+    return 1;
+}

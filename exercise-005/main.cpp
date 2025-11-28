@@ -1,6 +1,8 @@
 #include <fmt/format.h>
+#include <chrono>
 #include "list.hpp"
 #include "vector.hpp"
+
 
 auto main(int argc, char** argv) -> int
 {
@@ -68,6 +70,43 @@ auto main(int argc, char** argv) -> int
     fmt::print("Vector: ");
     vector_print(&vec);
 
+    // Aufgabe 6 – Inserts vergleichen (Liste vs. Vector)
+    using clock = std::chrono::high_resolution_clock;
+    constexpr unsigned int N = 1500;
+
+    // Liste: immer nach Kopf einfügen
+    List_t* list_bench = NewList();
+    ListNode_t* head = NewListNode();
+    head->data = 0;
+    InsertIntoLinkedList(list_bench, head);
+
+    auto start_list = clock::now();
+    for (unsigned int i = 1; i <= N; ++i) {
+        ListNode_t* node = NewListNode();
+        node->data = i;
+        InsertIntoLinkedListAfterNode(list_bench, head, node);
+    }
+    auto end_list = clock::now();
+    auto dur_list = std::chrono::duration_cast<std::chrono::microseconds>(end_list - start_list).count();
+
+    fmt::print("Listen-Insert ({} Elemente nach Kopf): {} µs\n", N, dur_list);
+
+    FreeList(list_bench);
+
+    // Vector: immer an Position 0 einfügen (teuerster Fall)
+    Vector_t vec_bench;
+    vector_init(&vec_bench);
+
+    auto start_vec = clock::now();
+    for (unsigned int i = 0; i < N; ++i) {
+        vector_insert_at(&vec_bench, 0, i);
+    }
+    auto end_vec = clock::now();
+    auto dur_vec = std::chrono::duration_cast<std::chrono::microseconds>(end_vec - start_vec).count();
+
+    fmt::print("Vector-Insert ({} Elemente an Index 0): {} µs\n", N, dur_vec);
+
+    vector_clear(&vec_bench);
     vector_clear(&vec);
 
     return 0;
