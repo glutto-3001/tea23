@@ -1,6 +1,6 @@
 #include "vector.hpp"
-#include <cstdio>
 #include <cstdlib>
+#include <cstdio>
 
 // Aufgabe 3 – Mini-Vector
 
@@ -10,6 +10,7 @@ void vector_init(Vector_t* vec) {
     if (vec == nullptr) {
         return;
     }
+
     vec->data = static_cast<unsigned int*>(
         std::malloc(VECTOR_INITIAL_CAPACITY * sizeof(unsigned int))
     );
@@ -18,6 +19,7 @@ void vector_init(Vector_t* vec) {
         vec->capacity = 0;
         return;
     }
+
     vec->size = 0;
     vec->capacity = VECTOR_INITIAL_CAPACITY;
 }
@@ -26,6 +28,7 @@ void vector_clear(Vector_t* vec) {
     if (vec == nullptr) {
         return;
     }
+
     if (vec->data != nullptr) {
         std::free(vec->data);
         vec->data = nullptr;
@@ -39,6 +42,7 @@ int vector_push_back(Vector_t* vec, unsigned int value) {
         return 0;
     }
 
+    // Falls noch nicht initialisiert
     if (vec->data == nullptr || vec->capacity == 0) {
         vector_init(vec);
         if (vec->data == nullptr) {
@@ -46,6 +50,7 @@ int vector_push_back(Vector_t* vec, unsigned int value) {
         }
     }
 
+    // Bei Bedarf Kapazität verdoppeln
     if (vec->size >= vec->capacity) {
         size_t newCapacity = vec->capacity * 2;
         unsigned int* newData = static_cast<unsigned int*>(
