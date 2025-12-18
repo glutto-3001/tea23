@@ -105,6 +105,7 @@ auto main(int argc, char** argv) -> int
             fmt::print("---- Zyklus beendet ----\n\n");
         }
     }
+    // ALTERNATIV mit LUT: siehe main2.cpp
 
     return 0;
 }
